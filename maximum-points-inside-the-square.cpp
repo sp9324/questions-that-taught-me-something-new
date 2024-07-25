@@ -1,44 +1,34 @@
-#include <iostream>
-#include <vector>
-using namespace std;
+//linear time
 
-void shift(vector<int>& array, int start, int end) {
-    for (int i = end + 1; i > start; --i) {
-        array[i] = array[i - 1];
-    }
-}
-
-void naiveMergeSort(vector<int>& array, int start, int end) {
-    if (start >= end) {
-        return;
-    }
-
-    int mid = (start + end) / 2;
-    naiveMergeSort(array, start, mid);
-    naiveMergeSort(array, mid + 1, end);
-
-    int left = start;
-    int right = mid + 1;
-
-    while (left <= mid && right <= end) {
-        if (array[left] < array[right]) {
-            left++;
-        } else {
-            int temp = array[right];
-            shift(array, left, mid);
-            array[left] = temp;
-            left++;
-            mid++;
-            right++;
+class Solution {
+public:
+    int maxPointsInsideSquare(vector<vector<int>>& points, string s) {
+        vector<int>corrSquare;
+        for(auto point : points) {
+            auto maxCord=max(abs(point[0]), abs(point[1]));
+            corrSquare.push_back(maxCord);
         }
-    }
-}
 
-int main() {
-    vector<int> v = {5, 1, 1, 2, 0, 0};
-    naiveMergeSort(v, 0, v.size() - 1);
-    for (int num : v) {
-        cout << num << " ";
+        unordered_map<char, int> minSquare;
+        int ignoreBigger=INT_MAX;
+        for(auto i=0; i<corrSquare.size(); i++) {
+            auto curSquare=corrSquare[i];
+            if(minSquare.count(s[i])) {
+                if (curSquare < minSquare[s[i]])
+                {
+                    ignoreBigger = min(ignoreBigger, minSquare[s[i]]);
+                    minSquare[s[i]] = curSquare;
+                }
+                else
+                {
+                    ignoreBigger=min(ignoreBigger, curSquare);
+                }
+            } else {
+                minSquare[s[i]]=curSquare;
+            }
+        }
+        int ans=0;
+        for(auto squareLen : corrSquare) if(squareLen<ignoreBigger) ans++;
+        return ans;
     }
-    return 0;
-}
+};
