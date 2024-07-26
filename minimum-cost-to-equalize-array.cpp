@@ -1,4 +1,5 @@
 // linear time, constant space
+// picturize as histograms. algo involves reducing gaps to make heights of all equal using op1 and op2
 class Solution {
 public:
     int minCostToEqualizeArray(vector<int>& nums, int cost1, int cost2) {
