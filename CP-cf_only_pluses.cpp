@@ -7,6 +7,15 @@
 #include <cmath>
 #include <limits>
 
+/*
+this question was very simple but the main thing to learn from this is that: increasing the smaller numbers among the 
+numbers to be multiplied will be more beneficial to increase the product (then increasing the larger number)-> 
+intuition for this could be that 4*3 is 4+4+4, 
+                                 5*3 is 5+5+5
+                                 4*4 is 4+4+4+4 -> this is more beneficial
+*/
+
+
 using namespace std;
 
 int main()
